@@ -1,18 +1,34 @@
 import React from 'react';
 
-function Navbar(props){
+class Navbar extends React.Component {
 
-    return (
-        <div id="navbar">
-            <input placeholder="search" />
+    state = {
+        searchInput: ""
+    }
+
+    searchHandler = (event) => {
+        console.log("Search Handled")
+        this.setState({
+            searchInput: event.target.value
+        }, this.props.changeSearchInput(event.target.value))
+        
+    }
+
+    render() {
+        
+
+        return (
+            <div id="navbar">
+                <input onChange={this.searchHandler} value={this.state.searchInput} placeholder="search" />
             <div id="filter-container">
-                <div onClick={() => props.changeFilter("")} className="filter-item" id="all">All</div>
-                <div onClick={() => props.changeFilter("Gender Neutral")} className="filter-item" id="neutral">Gender Neutral</div>
-                <div onClick={() => props.changeFilter("Men")} className="filter-item" id="men">Men</div>
-                <div onClick={() => props.changeFilter("Women")} className="filter-item" id="women">Women</div>
+                <div onClick={() => this.props.changeFilter("")} className="filter-item" id="all">All</div>
+                <div onClick={() => this.props.changeFilter("Gender Neutral")} className="filter-item" id="neutral">Gender Neutral</div>
+                <div onClick={() => this.props.changeFilter("Men")} className="filter-item" id="men">Men</div>
+                <div onClick={() => this.props.changeFilter("Women")} className="filter-item" id="women">Women</div>
             </div>
         </div>
-    )
+        )
+    }      
 }
 
 export default Navbar;
